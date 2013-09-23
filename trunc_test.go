@@ -1,4 +1,4 @@
-package util
+package rounding
 
 import (
 	"math/big"
@@ -78,7 +78,7 @@ func BenchmarkTrunc(b *testing.B) {
 	x := new(big.Rat)
 	for i := 0; i < b.N; i++ {
 		b.StopTimer()
-		x.SetFrac64(rand.Int63n(200) - 100, rand.Int63n(100) + 1)
+		x.SetFrac64(rand.Int63n(200)-100, rand.Int63n(100)+1)
 		prec := rand.Intn(20)
 		b.StartTimer()
 

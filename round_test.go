@@ -1,4 +1,4 @@
-package util
+package rounding
 
 import (
 	"math/big"
@@ -131,7 +131,7 @@ func benchmarkRounding(b *testing.B, mode RoundingMode) {
 	for i := 0; i < b.N; i++ {
 		b.StopTimer()
 		x.SetFrac(x.Num().Rand(r, d), d)
-		if i % 2 == 0 {
+		if i%2 == 0 {
 			x.Neg(x)
 		}
 		prec := rand.Intn(10)

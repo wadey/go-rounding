@@ -17,7 +17,7 @@ const (
 )
 
 func Round(x *big.Rat, prec int, method RoundingMode) *big.Rat {
-	Trunc(x, prec + 1)
+	Trunc(x, prec+1)
 	n, d := x.Num(), x.Denom()
 	l := new(big.Int).Rem(n, big10)
 	l.Abs(l)
@@ -40,7 +40,7 @@ func Round(x *big.Rat, prec int, method RoundingMode) *big.Rat {
 		if li == 5 {
 			k := new(big.Int).Rem(n, big100)
 			ki := k.Int64() / 10
-			if ki % 2 == 0 {
+			if ki%2 == 0 {
 				method = Down
 			} else {
 				method = Up
@@ -56,9 +56,9 @@ func Round(x *big.Rat, prec int, method RoundingMode) *big.Rat {
 	case Up:
 		if li != 0 {
 			if x.Sign() > 0 {
-				n.Add(n, l.SetInt64(10 - li))
+				n.Add(n, l.SetInt64(10-li))
 			} else {
-				n.Sub(n, l.SetInt64(10 - li))
+				n.Sub(n, l.SetInt64(10-li))
 			}
 		}
 	case Down:
@@ -70,7 +70,7 @@ func Round(x *big.Rat, prec int, method RoundingMode) *big.Rat {
 	case Ceil:
 		if x.Sign() > 0 {
 			if li != 0 {
-				n.Add(n, l.SetInt64(10 - li))
+				n.Add(n, l.SetInt64(10-li))
 			}
 		} else {
 			n.Add(n, l)
@@ -80,11 +80,11 @@ func Round(x *big.Rat, prec int, method RoundingMode) *big.Rat {
 			n.Sub(n, l)
 		} else {
 			if li != 0 {
-				n.Sub(n, l.SetInt64(10 - li))
+				n.Sub(n, l.SetInt64(10-li))
 			}
 		}
 	}
 
-	// To force renormalization 
+	// To force renormalization
 	return x.SetFrac(n, d)
 }

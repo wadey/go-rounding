@@ -5,7 +5,7 @@ import (
 )
 
 var (
-	big10 = big.NewInt(10)
+	big10  = big.NewInt(10)
 	big100 = big.NewInt(100)
 )
 

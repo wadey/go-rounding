@@ -4,7 +4,7 @@ import (
 	"math/big"
 )
 
-// Sets x to the decimal value truncated at the given precision
+// Sets x to the decimal value truncated at the given precision.
 // Returns the argument that was modified in place
 // Example:
 //   for DecTrunc(NewRat(2, 3), 2), x would be set to 66/100 (0.66)
