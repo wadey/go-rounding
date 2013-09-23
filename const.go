@@ -1,4 +1,4 @@
-package util
+package rounding
 
 import (
 	"math/big"
