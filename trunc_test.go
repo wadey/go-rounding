@@ -23,6 +23,10 @@ func TestTrunc(t *testing.T) {
 	}
 
 	b = big.NewRat(2, 3)
+	Trunc(b, 100)
+	if len(b.FloatString(100)) != 102 {
+		t.Fatal(b)
+	}
 	Trunc(b, 2)
 	if b.FloatString(3) != "0.660" {
 		t.Fatal(b)
