@@ -56,21 +56,21 @@ func TestSignAfterTrunc(t *testing.T) {
 	b, _ := new(big.Rat).SetString("0.001")
 
 	if b.Sign() != 1 {
-		t.Fatal()
+		t.Fatal(b)
 	}
 	Trunc(b, 2)
 	if b.Sign() != 0 {
-		t.Fatal()
+		t.Fatal(b)
 	}
 
 	b.SetString("-0.001")
 
 	if b.Sign() != -1 {
-		t.Fatal()
+		t.Fatal(b)
 	}
 	Trunc(b, 2)
 	if b.Sign() != 0 {
-		t.Fatal()
+		t.Fatal(b)
 	}
 }
 

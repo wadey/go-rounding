@@ -7,15 +7,28 @@ import (
 type RoundingMode int
 
 const (
+	// Rounding mode to round away from zero.
 	Up RoundingMode = iota
+	// Rounding mode to round towards zero.
 	Down
+	// Rounding mode to round towards positive infinity.
 	Ceil
+	// Rounding mode to round towards negative infinity.
 	Floor
+	// Rounding mode to round towards "nearest neighbor" unless both neighbors are equidistant, in which case round up.
 	HalfUp
+	// Rounding mode to round towards "nearest neighbor" unless both neighbors are equidistant, in which case round down.
 	HalfDown
+	// Rounding mode to round towards the "nearest neighbor" unless both neighbors are equidistant, in which case, round towards the even neighbor.
 	HalfEven
 )
 
+// Round sets x to its value rounded to the given precision using the given rounding mode.
+// Returns x, which was modified in place.
+// Example:
+//   x, _ := new(big.Rat).SetString("0.125")
+//   rounding.Round(x, 2, rounding.HalfEven)
+// x would be set to 12/100 (0.12)
 func Round(x *big.Rat, prec int, method RoundingMode) *big.Rat {
 	Trunc(x, prec+1)
 	n, d := x.Num(), x.Denom()

@@ -1,3 +1,5 @@
+// Rounding and truncation methods for big.Rat to close some of the gap in
+// functionality between Rat and Decimal (such as Java's BigDecimal).
 package rounding
 
 import (
