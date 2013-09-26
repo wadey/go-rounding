@@ -48,7 +48,7 @@ func FinitePrec(x *big.Rat) int {
 	return i
 }
 
-// FiniteString returns the equivalent of x.FloatString(FinitPrec(x)).
+// FiniteString returns the equivalent of x.FloatString(FinitePrec(x)).
 // WARNING: Running this on a value that does not have a finite decimal
 // representation will result in an infinite loop. Always check with Finite()
 // first if you are unsure.
@@ -56,7 +56,7 @@ func FiniteString(x *big.Rat) string {
 	return x.FloatString(FinitePrec(x))
 }
 
-// FiniteString returns the equivalent of x.FloatString(max(FinitPrec(x), prec)).
+// FiniteString returns the equivalent of x.FloatString(max(FinitePrec(x), prec)).
 // WARNING: Running this on a value that does not have a finite decimal
 // representation will result in an infinite loop. Always check with Finite()
 // first if you are unsure.
