@@ -18,3 +18,30 @@ func ExampleRound() {
 	fmt.Println(x.FloatString(2))
 	// Output: 0.12
 }
+
+func ExampleFinite() {
+	x, _ := new(big.Rat).SetString("0.125")
+	fmt.Println(Finite(x))
+	fmt.Println(Finite(big.NewRat(2, 3)))
+	// Output:
+	// true
+	// false
+}
+
+func ExampleFinitePrec() {
+	x, _ := new(big.Rat).SetString("0.125")
+	fmt.Println(FinitePrec(x))
+	// Output: 3
+}
+
+func ExampleFiniteString() {
+	x, _ := new(big.Rat).SetString("0.125")
+	fmt.Println(FiniteString(x))
+	// Output: 0.125
+}
+
+func ExampleFiniteStringMin() {
+	x, _ := new(big.Rat).SetString("5.00")
+	fmt.Println(FiniteStringMin(x, 2))
+	// Output: 5.00
+}

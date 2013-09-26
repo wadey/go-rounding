@@ -14,6 +14,9 @@ const (
 )
 
 var (
+	big1   = big.NewInt(1)
+	big2   = big.NewInt(2)
+	big5   = big.NewInt(5)
 	big10  = big.NewInt(10)
 	big100 = big.NewInt(100)
 
