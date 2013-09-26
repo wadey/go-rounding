@@ -32,7 +32,7 @@ func Finite(x *big.Rat) bool {
 }
 
 // FinitePrec returns the precision of the finite deciml representation of x.
-// WARNING: Running this on a big.Rat that does not have a finite decimal
+// WARNING: Running this on a value that does not have a finite decimal
 // representation will result in an infinite loop. Always check with Finite()
 // first if you are unsure.
 func FinitePrec(x *big.Rat) int {
@@ -49,7 +49,7 @@ func FinitePrec(x *big.Rat) int {
 }
 
 // FiniteString returns the equivalent of x.FloatString(FinitPrec(x)).
-// WARNING: Running this on a big.Rat that does not have a finite decimal
+// WARNING: Running this on a value that does not have a finite decimal
 // representation will result in an infinite loop. Always check with Finite()
 // first if you are unsure.
 func FiniteString(x *big.Rat) string {
@@ -57,7 +57,7 @@ func FiniteString(x *big.Rat) string {
 }
 
 // FiniteString returns the equivalent of x.FloatString(max(FinitPrec(x), prec)).
-// WARNING: Running this on a big.Rat that does not have a finite decimal
+// WARNING: Running this on a value that does not have a finite decimal
 // representation will result in an infinite loop. Always check with Finite()
 // first if you are unsure.
 func FiniteStringMin(x *big.Rat, prec int) string {
