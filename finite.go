@@ -11,8 +11,7 @@ func remQuo(x, y, q, r *big.Int) *big.Int {
 }
 
 // Finite returns true if x has a finite decimal representation.
-// x is finite if the Denom can be represented as
-//   (2**x) * (5**y)
+// x is finite if the Denom can be represented as (2**x) * (5**y).
 func Finite(x *big.Rat) bool {
 	d := new(big.Int).Set(x.Denom())
 	i := new(big.Int)
@@ -32,7 +31,7 @@ func Finite(x *big.Rat) bool {
 	}
 }
 
-// FinitePrec returns the precision of the finite deciml representation of x.
+// FinitePrec returns the precision of the finite decimal representation of x.
 // WARNING: Running this on a value that does not have a finite decimal
 // representation will result in an infinite loop. Always check with Finite()
 // first if you are unsure.
