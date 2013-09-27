@@ -1,5 +1,5 @@
-// Rounding and truncation methods for big.Rat to close some of the gap in
-// functionality between Rat and Decimal (such as Java's BigDecimal).
+// Rounding and truncation methods for big.Rat. Uses the same rounding
+// terminology as Java's BigDecimal.
 //
 // For more information see the README at:
 //   https://github.com/wadey/go-rounding
