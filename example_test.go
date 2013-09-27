@@ -41,7 +41,7 @@ func ExampleFiniteString() {
 }
 
 func ExampleFiniteStringMin() {
-	x, _ := new(big.Rat).SetString("5.00")
+	x, _ := new(big.Rat).SetString("5")
 	fmt.Println(FiniteStringMin(x, 2))
 	// Output: 5.00
 }
