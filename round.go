@@ -85,26 +85,28 @@ func roundHalfEven(n, l *big.Int) {
 	}
 }
 
-// Rounding mode to round away from zero.
-var Up RoundingMode = roundUp
+var (
+	// Rounding mode to round away from zero.
+	Up RoundingMode = roundUp
 
-// Rounding mode to round towards zero.
-var Down RoundingMode = roundDown
+	// Rounding mode to round towards zero.
+	Down RoundingMode = roundDown
 
-// Rounding mode to round towards positive infinity.
-var Ceil RoundingMode = roundCeil
+	// Rounding mode to round towards positive infinity.
+	Ceil RoundingMode = roundCeil
 
-// Rounding mode to round towards negative infinity.
-var Floor RoundingMode = roundFloor
+	// Rounding mode to round towards negative infinity.
+	Floor RoundingMode = roundFloor
 
-// Rounding mode to round towards "nearest neighbor" unless both neighbors are equidistant, in which case round up.
-var HalfUp RoundingMode = roundHalfUp
+	// Rounding mode to round towards "nearest neighbor" unless both neighbors are equidistant, in which case round up.
+	HalfUp RoundingMode = roundHalfUp
 
-// Rounding mode to round towards "nearest neighbor" unless both neighbors are equidistant, in which case round down.
-var HalfDown RoundingMode = roundHalfDown
+	// Rounding mode to round towards "nearest neighbor" unless both neighbors are equidistant, in which case round down.
+	HalfDown RoundingMode = roundHalfDown
 
-// Rounding mode to round towards the "nearest neighbor" unless both neighbors are equidistant, in which case, round towards the even neighbor.
-var HalfEven RoundingMode = roundHalfEven
+	// Rounding mode to round towards the "nearest neighbor" unless both neighbors are equidistant, in which case, round towards the even neighbor.
+	HalfEven RoundingMode = roundHalfEven
+)
 
 // Round sets x to its value rounded to the given precision using the given rounding mode.
 // Returns x, which was modified in place.
