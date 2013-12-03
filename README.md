@@ -30,10 +30,10 @@ To run:
 
     go test -v -benchmem -bench .
 
-Example output on `go1.1.2 darwin/amd64` commit 77746a8
+Example output on `go1.2 darwin_amd64` commit f8f259b28f
 
-    BenchmarkFinite           2000000           810 ns/op         238 B/op          5 allocs/op
-    BenchmarkFinitePrec       1000000          1349 ns/op         367 B/op          8 allocs/op
-    BenchmarkRoundUp           500000          3103 ns/op         439 B/op         10 allocs/op
-    BenchmarkRoundHalfEven     500000          3118 ns/op         438 B/op         10 allocs/op
-    BenchmarkTrunc            5000000           406 ns/op          74 B/op          1 allocs/op
+    BenchmarkFinite           2000000       817 ns/op     234 B/op       5 allocs/op
+    BenchmarkFinitePrec       1000000      1775 ns/op     356 B/op       8 allocs/op
+    BenchmarkRoundUp          1000000      2639 ns/op     436 B/op      10 allocs/op
+    BenchmarkRoundHalfEven    1000000      2628 ns/op     434 B/op      10 allocs/op
+    BenchmarkTrunc            5000000       502 ns/op      71 B/op       1 allocs/op
