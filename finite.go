@@ -1,6 +1,7 @@
 package rounding
 
 import (
+	"fmt"
 	"math/big"
 )
 
@@ -36,9 +37,11 @@ func Finite(x *big.Rat) bool {
 
 // FinitePrec returns the precision of the finite decimal representation of x.
 // WARNING: Running this on a value that does not have a finite decimal
-// representation will result in an infinite loop. Always check with Finite()
-// first if you are unsure.
+// representation will panic.
 func FinitePrec(x *big.Rat) int {
+	if !Finite(x) {
+		panic(fmt.Errorf("rounding.FinitePrec: called with non-finite value: %v", x))
+	}
 	// calling x.Denom() can modify x (populates b) so be extra careful
 	xx := new(big.Rat).Set(x)
 
@@ -56,16 +59,14 @@ func FinitePrec(x *big.Rat) int {
 
 // FiniteString returns the equivalent of x.FloatString(FinitePrec(x)).
 // WARNING: Running this on a value that does not have a finite decimal
-// representation will result in an infinite loop. Always check with Finite()
-// first if you are unsure.
+// representation will panic.
 func FiniteString(x *big.Rat) string {
 	return x.FloatString(FinitePrec(x))
 }
 
 // FiniteStringMin returns the equivalent of x.FloatString(max(FinitePrec(x), prec)).
 // WARNING: Running this on a value that does not have a finite decimal
-// representation will result in an infinite loop. Always check with Finite()
-// first if you are unsure.
+// representation will panic.
 func FiniteStringMin(x *big.Rat, prec int) string {
 	p := FinitePrec(x)
 	if p < prec {
