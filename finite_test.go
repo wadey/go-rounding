@@ -32,6 +32,16 @@ func TestFinitePrec(t *testing.T) {
 	test(5, 1, 0)
 }
 
+func TestFinitePrecPanic(t *testing.T) {
+	defer func() {
+		if err := recover(); err == nil {
+			t.Errorf("Expected FinitePrec(2, 3) to panic")
+		}
+	}()
+
+	FinitePrec(big.NewRat(2, 3))
+}
+
 func TestFiniteString(t *testing.T) {
 	test := func(x, y int64, s string) {
 		if actual := FiniteString(big.NewRat(x, y)); actual != s {
