@@ -111,7 +111,7 @@ var (
 // Round sets x to its value rounded to the given precision using the given rounding mode.
 // Returns x, which was modified in place.
 func Round(x *big.Rat, prec int, method RoundingMode) *big.Rat {
-	Trunc(x, prec+1)
+	trunc(x, prec+1)
 	n, d := x.Num(), x.Denom()
 	l := new(big.Int).Rem(n, big10)
 	l.Abs(l)
