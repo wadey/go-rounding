@@ -18,6 +18,12 @@ func TestRoundUp(t *testing.T) {
 	testRounding(t, "-1.6", "-2", 0, m)
 	testRounding(t, "-2.5", "-3", 0, m)
 	testRounding(t, "-5.5", "-6", 0, m)
+
+	testRounding(t, "0", "0", 0, m)
+	testRounding(t, "0.01", "1", 0, m)
+	testRounding(t, "1.01", "2", 0, m)
+	testRounding(t, "-0.01", "-1", 0, m)
+	testRounding(t, "-1.01", "-2", 0, m)
 }
 
 func TestRoundDown(t *testing.T) {
@@ -32,6 +38,12 @@ func TestRoundDown(t *testing.T) {
 	testRounding(t, "-1.6", "-1", 0, m)
 	testRounding(t, "-2.5", "-2", 0, m)
 	testRounding(t, "-5.5", "-5", 0, m)
+
+	testRounding(t, "0", "0", 0, m)
+	testRounding(t, "0.01", "0", 0, m)
+	testRounding(t, "1.01", "1", 0, m)
+	testRounding(t, "-0.01", "0", 0, m)
+	testRounding(t, "-1.01", "-1", 0, m)
 }
 
 func TestRoundCeil(t *testing.T) {
@@ -46,6 +58,12 @@ func TestRoundCeil(t *testing.T) {
 	testRounding(t, "-1.6", "-1", 0, m)
 	testRounding(t, "-2.5", "-2", 0, m)
 	testRounding(t, "-5.5", "-5", 0, m)
+
+	testRounding(t, "0", "0", 0, m)
+	testRounding(t, "0.01", "1", 0, m)
+	testRounding(t, "1.01", "2", 0, m)
+	testRounding(t, "-0.01", "0", 0, m)
+	testRounding(t, "-1.01", "-1", 0, m)
 }
 
 func TestRoundFloor(t *testing.T) {
@@ -60,6 +78,12 @@ func TestRoundFloor(t *testing.T) {
 	testRounding(t, "-1.6", "-2", 0, m)
 	testRounding(t, "-2.5", "-3", 0, m)
 	testRounding(t, "-5.5", "-6", 0, m)
+
+	testRounding(t, "0", "0", 0, m)
+	testRounding(t, "0.01", "0", 0, m)
+	testRounding(t, "1.01", "1", 0, m)
+	testRounding(t, "-0.01", "-1", 0, m)
+	testRounding(t, "-1.01", "-2", 0, m)
 }
 
 func TestRoundHalfUp(t *testing.T) {
@@ -74,6 +98,12 @@ func TestRoundHalfUp(t *testing.T) {
 	testRounding(t, "-1.6", "-2", 0, m)
 	testRounding(t, "-2.5", "-3", 0, m)
 	testRounding(t, "-5.5", "-6", 0, m)
+
+	testRounding(t, "0", "0", 0, m)
+	testRounding(t, "0.01", "0", 0, m)
+	testRounding(t, "1.01", "1", 0, m)
+	testRounding(t, "-0.01", "0", 0, m)
+	testRounding(t, "-1.01", "-1", 0, m)
 }
 
 func TestRoundHalfDown(t *testing.T) {
@@ -88,6 +118,12 @@ func TestRoundHalfDown(t *testing.T) {
 	testRounding(t, "-1.6", "-2", 0, m)
 	testRounding(t, "-2.5", "-2", 0, m)
 	testRounding(t, "-5.5", "-5", 0, m)
+
+	testRounding(t, "0", "0", 0, m)
+	testRounding(t, "0.01", "0", 0, m)
+	testRounding(t, "1.01", "1", 0, m)
+	testRounding(t, "-0.01", "0", 0, m)
+	testRounding(t, "-1.01", "-1", 0, m)
 }
 
 func TestRoundHalfEven(t *testing.T) {
@@ -102,6 +138,12 @@ func TestRoundHalfEven(t *testing.T) {
 	testRounding(t, "-1.6", "-2", 0, m)
 	testRounding(t, "-2.5", "-2", 0, m)
 	testRounding(t, "-5.5", "-6", 0, m)
+
+	testRounding(t, "0", "0", 0, m)
+	testRounding(t, "0.01", "0", 0, m)
+	testRounding(t, "1.01", "1", 0, m)
+	testRounding(t, "-0.01", "0", 0, m)
+	testRounding(t, "-1.01", "-1", 0, m)
 }
 
 func testRounding(t *testing.T, a, b string, prec int, method RoundingMode) {
