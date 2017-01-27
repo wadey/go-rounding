@@ -7,7 +7,7 @@ import (
 )
 
 func TestRoundUp(t *testing.T) {
-	m := Up
+	m := roundUp
 	testRounding(t, "5.5", "6", 0, m)
 	testRounding(t, "2.5", "3", 0, m)
 	testRounding(t, "1.6", "2", 0, m)
@@ -26,20 +26,6 @@ func TestRoundDown(t *testing.T) {
 	testRounding(t, "2.5", "2", 0, m)
 	testRounding(t, "1.6", "1", 0, m)
 	testRounding(t, "1.1", "1", 0, m)
-	testRounding(t, "1.0", "1", 0, m)
-	testRounding(t, "-1.0", "-1", 0, m)
-	testRounding(t, "-1.1", "-1", 0, m)
-	testRounding(t, "-1.6", "-1", 0, m)
-	testRounding(t, "-2.5", "-2", 0, m)
-	testRounding(t, "-5.5", "-5", 0, m)
-}
-
-func TestRoundCeil(t *testing.T) {
-	m := Ceil
-	testRounding(t, "5.5", "6", 0, m)
-	testRounding(t, "2.5", "3", 0, m)
-	testRounding(t, "1.6", "2", 0, m)
-	testRounding(t, "1.1", "2", 0, m)
 	testRounding(t, "1.0", "1", 0, m)
 	testRounding(t, "-1.0", "-1", 0, m)
 	testRounding(t, "-1.1", "-1", 0, m)
@@ -117,7 +103,7 @@ func testRounding(t *testing.T, a, b string, prec int, method RoundingMode) {
 }
 
 func BenchmarkRoundUp(b *testing.B) {
-	benchmarkRounding(b, Up)
+	benchmarkRounding(b, roundUp)
 }
 
 func BenchmarkRoundHalfEven(b *testing.B) {
