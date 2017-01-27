@@ -30,17 +30,6 @@ func roundDown(n, l *big.Int) {
 	}
 }
 
-func roundCeil(n, l *big.Int) {
-	li := l.Int64()
-	if n.Sign() > 0 {
-		if li != 0 {
-			n.Add(n, l.SetInt64(10-li))
-		}
-	} else {
-		n.Add(n, l)
-	}
-}
-
 func roundFloor(n, l *big.Int) {
 	if n.Sign() > 0 {
 		n.Sub(n, l)
@@ -86,14 +75,8 @@ func roundHalfEven(n, l *big.Int) {
 }
 
 var (
-	// Up rounds away from zero.
-	Up RoundingMode = roundUp
-
 	// Down rounds towards zero.
 	Down RoundingMode = roundDown
-
-	// Ceil rounds towards positive infinity.
-	Ceil RoundingMode = roundCeil
 
 	// Floor rounds towards negative infinity.
 	Floor RoundingMode = roundFloor
