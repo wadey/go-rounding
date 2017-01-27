@@ -7,19 +7,23 @@ import (
 // RoundingMode describes how to round a given number.
 // sign is the sign of the number (needed when n is zero)
 // n is the integer that should be rounded such that the last digit is zero.
-// l is the current last digit of n. For most cases you shouldn't need to
-// implement this yourself, use one of the provided implementations in the
-// rounding package.
+// l is the current last digit of n.
+// NOTE: This method is only called when rounding is necessary, so if l == 0 it
+// means there was more precision that was already truncated.
+// For most cases you shouldn't need to implement this yourself, use one of
+// the provided implementations in the rounding package.
 type RoundingMode func(sign int, n, l *big.Int)
 
 func roundUp(sign int, n, l *big.Int) {
 	li := l.Int64()
-	if li != 0 {
-		if sign > 0 {
-			n.Add(n, l.SetInt64(10-li))
-		} else {
-			n.Sub(n, l.SetInt64(10-li))
-		}
+	if li == 0 {
+		// Something was truncated after the zero, so round up
+		li = 1
+	}
+	if sign >= 0 {
+		n.Add(n, l.SetInt64(10-li))
+	} else {
+		n.Sub(n, l.SetInt64(10-li))
 	}
 }
 
@@ -32,11 +36,13 @@ func roundDown(sign int, n, l *big.Int) {
 }
 
 func roundCeil(sign int, n, l *big.Int) {
-	li := l.Int64()
 	if sign > 0 {
-		if li != 0 {
-			n.Add(n, l.SetInt64(10-li))
+		li := l.Int64()
+		if li == 0 {
+			// Something was truncated after the zero, so round up
+			li = 1
 		}
+		n.Add(n, l.SetInt64(10-li))
 	} else {
 		n.Add(n, l)
 	}
@@ -47,9 +53,11 @@ func roundFloor(sign int, n, l *big.Int) {
 		n.Sub(n, l)
 	} else {
 		li := l.Int64()
-		if li != 0 {
-			n.Sub(n, l.SetInt64(10-li))
+		if li == 0 {
+			// Something was truncated after the zero, so round up
+			li = 1
 		}
+		n.Sub(n, l.SetInt64(10-li))
 	}
 }
 
@@ -113,12 +121,16 @@ var (
 // Returns x, which was modified in place.
 func Round(x *big.Rat, prec int, method RoundingMode) *big.Rat {
 	sign := x.Sign()
+	orig := new(big.Rat).Set(x)
 	trunc(x, prec+1)
 	n, d := x.Num(), x.Denom()
 	l := new(big.Int).Rem(n, big10)
 	l.Abs(l)
 
-	method(sign, n, l)
+	// Only run the rounding method if just truncating won't suffice
+	if l.Sign() != 0 || x.Cmp(orig) != 0 {
+		method(sign, n, l)
+	}
 
 	// To force renormalization
 	return x.SetFrac(n, d)
