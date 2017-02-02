@@ -151,10 +151,15 @@ func testRounding(t *testing.T, a, b string, prec int, method RoundingMode) {
 	if !ok {
 		t.Fatalf("Failed to parse: %s", a)
 	}
+	y, ok := new(big.Rat).SetString(b)
+	if !ok {
+		t.Fatalf("Failed to parse: %s", b)
+	}
+
 	Round(x, prec, method)
-	r := x.FloatString(prec)
-	if r != b {
-		t.Errorf("test Round(%v, %v, %v) == %s. Got %v", a, prec, method, b, r)
+
+	if x.Cmp(y) != 0 {
+		t.Errorf("test Round(%v, %v, %v) == %s. Got %v", a, prec, method, y, x)
 	}
 }
 
