@@ -16,10 +16,6 @@ type RoundingMode func(sign int, n, l *big.Int)
 
 func roundUp(sign int, n, l *big.Int) {
 	li := l.Int64()
-	if li == 0 {
-		// Something was truncated after the zero, so round up
-		li = 1
-	}
 	if sign >= 0 {
 		n.Add(n, l.SetInt64(10-li))
 	} else {
@@ -38,10 +34,6 @@ func roundDown(sign int, n, l *big.Int) {
 func roundCeil(sign int, n, l *big.Int) {
 	if sign > 0 {
 		li := l.Int64()
-		if li == 0 {
-			// Something was truncated after the zero, so round up
-			li = 1
-		}
 		n.Add(n, l.SetInt64(10-li))
 	} else {
 		n.Add(n, l)
@@ -53,10 +45,6 @@ func roundFloor(sign int, n, l *big.Int) {
 		n.Sub(n, l)
 	} else {
 		li := l.Int64()
-		if li == 0 {
-			// Something was truncated after the zero, so round up
-			li = 1
-		}
 		n.Sub(n, l.SetInt64(10-li))
 	}
 }
