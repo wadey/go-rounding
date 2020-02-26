@@ -1,3 +1,3 @@
-module github.com/wadey/go-routing
+module github.com/wadey/go-rounding
 
 go 1.13
