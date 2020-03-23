@@ -136,3 +136,16 @@ func Round(x *big.Rat, prec int, method RoundingMode) *big.Rat {
 	// To force renormalization
 	return x.SetFrac(n, d)
 }
+
+// RoundToInt returns x, rounded as integer. Does not modify x
+func RoundToInt(x *big.Rat, method RoundingMode) *big.Int {
+	c := new(big.Rat).Set(x)
+	Round(c, 0, method)
+
+	if !c.IsInt() {
+		panic("unexpected unrounded rational")
+	}
+
+	// as c is int, denominator is 1 and numerator is the int value
+	return c.Num()
+}
