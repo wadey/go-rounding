@@ -89,6 +89,9 @@ func TestRoundFloor(t *testing.T) {
 func TestRoundHalfUp(t *testing.T) {
 	m := HalfUp
 	testRounding(t, "5.5", "6", 0, m)
+	testRounding(t, "5.51", "6", 0, m)
+	testRounding(t, "5.5001", "6", 0, m)
+	testRounding(t, "5.4999", "5", 0, m)
 	testRounding(t, "2.5", "3", 0, m)
 	testRounding(t, "1.6", "2", 0, m)
 	testRounding(t, "1.1", "1", 0, m)
@@ -98,6 +101,9 @@ func TestRoundHalfUp(t *testing.T) {
 	testRounding(t, "-1.6", "-2", 0, m)
 	testRounding(t, "-2.5", "-3", 0, m)
 	testRounding(t, "-5.5", "-6", 0, m)
+	testRounding(t, "-5.51", "-6", 0, m)
+	testRounding(t, "-5.5001", "-6", 0, m)
+	testRounding(t, "-5.4999", "-5", 0, m)
 
 	testRounding(t, "0", "0", 0, m)
 	testRounding(t, "0.01", "0", 0, m)
@@ -109,6 +115,9 @@ func TestRoundHalfUp(t *testing.T) {
 func TestRoundHalfDown(t *testing.T) {
 	m := HalfDown
 	testRounding(t, "5.5", "5", 0, m)
+	testRounding(t, "5.51", "6", 0, m)
+	testRounding(t, "5.5001", "6", 0, m)
+	testRounding(t, "5.4999", "5", 0, m)
 	testRounding(t, "2.5", "2", 0, m)
 	testRounding(t, "1.6", "2", 0, m)
 	testRounding(t, "1.1", "1", 0, m)
@@ -118,6 +127,9 @@ func TestRoundHalfDown(t *testing.T) {
 	testRounding(t, "-1.6", "-2", 0, m)
 	testRounding(t, "-2.5", "-2", 0, m)
 	testRounding(t, "-5.5", "-5", 0, m)
+	testRounding(t, "-5.51", "-6", 0, m)
+	testRounding(t, "-5.5001", "-6", 0, m)
+	testRounding(t, "-5.4999", "-5", 0, m)
 
 	testRounding(t, "0", "0", 0, m)
 	testRounding(t, "0.01", "0", 0, m)
@@ -129,6 +141,13 @@ func TestRoundHalfDown(t *testing.T) {
 func TestRoundHalfEven(t *testing.T) {
 	m := HalfEven
 	testRounding(t, "5.5", "6", 0, m)
+	testRounding(t, "5.51", "6", 0, m)
+	testRounding(t, "5.5001", "6", 0, m)
+	testRounding(t, "5.4999", "5", 0, m)
+	testRounding(t, "6.51", "7", 0, m)
+	testRounding(t, "6.5001", "7", 0, m)
+	testRounding(t, "6.4999", "6", 0, m)
+
 	testRounding(t, "2.5", "2", 0, m)
 	testRounding(t, "1.6", "2", 0, m)
 	testRounding(t, "1.1", "1", 0, m)
@@ -138,6 +157,12 @@ func TestRoundHalfEven(t *testing.T) {
 	testRounding(t, "-1.6", "-2", 0, m)
 	testRounding(t, "-2.5", "-2", 0, m)
 	testRounding(t, "-5.5", "-6", 0, m)
+	testRounding(t, "-5.51", "-6", 0, m)
+	testRounding(t, "-5.5001", "-6", 0, m)
+	testRounding(t, "-5.4999", "-5", 0, m)
+	testRounding(t, "-6.51", "-7", 0, m)
+	testRounding(t, "-6.5001", "-7", 0, m)
+	testRounding(t, "-6.4999", "-6", 0, m)
 
 	testRounding(t, "0", "0", 0, m)
 	testRounding(t, "0.01", "0", 0, m)
