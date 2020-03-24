@@ -8,13 +8,14 @@ import (
 // sign is the sign of the number (needed when n is zero)
 // n is the integer that should be rounded such that the last digit is zero.
 // l is the current last digit of n.
+// r indicates whether the rest of the original number, after last digit, is non-zero
 // NOTE: This method is only called when rounding is necessary, so if l == 0 it
-// means there was more precision that was already truncated.
+// means there was more precision that was already truncated (so r is true).
 // For most cases you shouldn't need to implement this yourself, use one of
 // the provided implementations in the rounding package.
-type RoundingMode func(sign int, n, l *big.Int)
+type RoundingMode func(sign int, n, l *big.Int, r bool)
 
-func roundUp(sign int, n, l *big.Int) {
+func roundUp(sign int, n, l *big.Int, _ bool) {
 	li := l.Int64()
 	if sign >= 0 {
 		n.Add(n, l.SetInt64(10-li))
@@ -23,7 +24,7 @@ func roundUp(sign int, n, l *big.Int) {
 	}
 }
 
-func roundDown(sign int, n, l *big.Int) {
+func roundDown(sign int, n, l *big.Int, _ bool) {
 	if sign > 0 {
 		n.Sub(n, l)
 	} else {
@@ -31,7 +32,7 @@ func roundDown(sign int, n, l *big.Int) {
 	}
 }
 
-func roundCeil(sign int, n, l *big.Int) {
+func roundCeil(sign int, n, l *big.Int, _ bool) {
 	if sign > 0 {
 		li := l.Int64()
 		n.Add(n, l.SetInt64(10-li))
@@ -40,7 +41,7 @@ func roundCeil(sign int, n, l *big.Int) {
 	}
 }
 
-func roundFloor(sign int, n, l *big.Int) {
+func roundFloor(sign int, n, l *big.Int, _ bool) {
 	if sign > 0 {
 		n.Sub(n, l)
 	} else {
@@ -49,36 +50,47 @@ func roundFloor(sign int, n, l *big.Int) {
 	}
 }
 
-func roundHalfUp(sign int, n, l *big.Int) {
+func roundHalfUp(sign int, n, l *big.Int, r bool) {
 	if l.Int64() >= 5 {
-		roundUp(sign, n, l)
+		roundUp(sign, n, l, r)
 	} else {
-		roundDown(sign, n, l)
+		roundDown(sign, n, l, r)
 	}
 }
 
-func roundHalfDown(sign int, n, l *big.Int) {
+func roundHalfDown(sign int, n, l *big.Int, r bool) {
 	if l.Int64() > 5 {
-		roundUp(sign, n, l)
+		roundUp(sign, n, l, r)
+	} else if l.Int64() <= 4 {
+		roundDown(sign, n, l, r)
 	} else {
-		roundDown(sign, n, l)
+		// l.Int64() == 5
+		if r {
+			roundUp(sign, n, l, r)
+		} else {
+			roundDown(sign, n, l, r)
+		}
 	}
 }
 
-func roundHalfEven(sign int, n, l *big.Int) {
+func roundHalfEven(sign int, n, l *big.Int, r bool) {
 	li := l.Int64()
 	if li == 5 {
-		k := new(big.Int).Rem(n, big100)
-		ki := k.Int64() / 10
-		if ki%2 == 0 {
-			roundDown(sign, n, l)
+		if !r {
+			k := new(big.Int).Rem(n, big100)
+			ki := k.Int64() / 10
+			if ki%2 == 0 {
+				roundDown(sign, n, l, r)
+			} else {
+				roundUp(sign, n, l, r)
+			}
 		} else {
-			roundUp(sign, n, l)
+			roundUp(sign, n, l, r)
 		}
 	} else if li > 5 {
-		roundUp(sign, n, l)
+		roundUp(sign, n, l, r)
 	} else {
-		roundDown(sign, n, l)
+		roundDown(sign, n, l, r)
 	}
 }
 
@@ -115,9 +127,10 @@ func Round(x *big.Rat, prec int, method RoundingMode) *big.Rat {
 	l := new(big.Int).Rem(n, big10)
 	l.Abs(l)
 
+	r := x.Cmp(orig) != 0
 	// Only run the rounding method if just truncating won't suffice
-	if l.Sign() != 0 || x.Cmp(orig) != 0 {
-		method(sign, n, l)
+	if l.Sign() != 0 || r {
+		method(sign, n, l, r)
 	}
 
 	// To force renormalization
