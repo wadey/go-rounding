@@ -159,7 +159,7 @@ func testRounding(t *testing.T, a, b string, prec int, method RoundingMode) {
 	Round(x, prec, method)
 
 	if x.Cmp(y) != 0 {
-		t.Errorf("test Round(%v, %v, %v) == %s. Got %v", a, prec, method, b, x.FloatString(3))
+		t.Errorf("test Round(%v, %v, %v) == %s. Got %v", a, prec, method, y.FloatString(3), x.FloatString(3))
 	}
 }
 
