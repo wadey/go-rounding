@@ -186,6 +186,22 @@ func testRounding(t *testing.T, a, b string, prec int, method RoundingMode) {
 	if x.Cmp(y) != 0 {
 		t.Errorf("test Round(%v, %v, %v) == %s. Got %v", a, prec, method, y.FloatString(3), x.FloatString(3))
 	}
+
+	if prec == 0 {
+		x, ok := new(big.Rat).SetString(a)
+		if !ok {
+			t.Fatalf("Failed to parse: %s", b)
+		}
+
+		yInt, ok := new(big.Int).SetString(b, 10)
+		if !ok {
+			t.Fatalf("Failed to parse: %s", b)
+		}
+		xRounded := RoundToInt(x, method)
+		if xRounded.Cmp(yInt) != 0 {
+			t.Errorf("test RoundToInt(%v, %v) == %s. Got %v", a, method, yInt, xRounded)
+		}
+	}
 }
 
 func BenchmarkRoundUp(b *testing.B) {
